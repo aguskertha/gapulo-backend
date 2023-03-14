@@ -1,20 +1,25 @@
-var express = require('express');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
+require('dotenv').config();
 
-app.use(logger('dev'));
+app.use(cors());
+app.use(bodyParser.json());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+const router =  require('./src/routes/routes');
+
+app.get('/', (req,res) => {
+    res.json({message: 'hay'})
+})
+
+app.use('/api', router);
 
 module.exports = app;
