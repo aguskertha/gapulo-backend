@@ -2,7 +2,7 @@ const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
-const ObjectID = require('mongodb').ObjectID;
+const ObjectId = require('mongodb').ObjectId;
 
 const register = async (req, res, next) => {
     try {
@@ -64,14 +64,14 @@ const editPassword = async (req,res,next) => {
     try {
         const userId = req.body.userId;
         const newPassword = req.body.newPassword;
-        const user = await User.findOne({_id: ObjectID(userId)});
+        const user = await User.findOne({_id: ObjectId(userId)});
         bcrypt.hash(newPassword, 10, (err, hashedPassword) => {
             if(err){
                 res.json({message: err});
                 return false;
             }
             User.updateOne(
-                { _id: ObjectID(user._id)},
+                { _id: ObjectId(user._id)},
                 {
                     $set: {
                         password: hashedPassword
@@ -90,43 +90,58 @@ const editPassword = async (req,res,next) => {
 }
 
 const login = (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
 
-    if(!validator.isEmail(email)){
-        res.status(400).json({
-            message: 'Invalid email'
-        })
-        return false;
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+
+        if(!email)
+        {
+            throw "Email is required!"
+        }
+        if(!password)
+        {
+            throw "Password is required!"
+        }
+
+        if(!validator.isEmail(email)){
+            res.status(400).json({
+                message: 'Invalid email'
+            })
+            return false;
+        }
+
+        User.findOne({email: email})
+            .then((user) => {
+                if(user){
+                    bcrypt.compare(password, user.password, (err, result) => {
+                        if(err){
+                            res.json({message: 'Error: '+err});
+                        }
+                        if(result){
+                            const token = generateToken(user);
+                            res.json({userId: user._id, message: 'Login successfully', token});
+                        }
+                        else{
+                            res.json({message: 'Password does not matched!'});
+                        }
+                    })
+                }
+                else{
+                    res.json({message: 'No user found!'});
+                }
+            });
+    } catch (error) {
+        res.status(400).json({message: error.toString()})
     }
-
-    User.findOne({email: email})
-        .then((user) => {
-            if(user){
-                bcrypt.compare(password, user.password, (err, result) => {
-                    if(err){
-                        res.json({message: 'Error: '+err});
-                    }
-                    if(result){
-                        const token = generateToken(user);
-                        res.json({userId: user._id, message: 'Login successfully', token});
-                    }
-                    else{
-                        res.json({message: 'Password does not matched!'});
-                    }
-                })
-            }
-            else{
-                res.json({message: 'No user found!'});
-            }
-        });
+    
 }
 
 
 const newToken = async (req,res,next) => {
     const refreshToken = req.body.refreshToken;
     const userId = req.body.userId;
-    const user = await User.findOne({_id: ObjectID(userId)});
+    const user = await User.findOne({_id: ObjectId(userId)});
     if(user.refreshToken == '' || refreshToken == ''){
         res.status(400).json({message: 'Login first'});
         return false;
@@ -154,9 +169,9 @@ const generateToken = (user) => {
 
 const logout = async (req, res, next) => {
     // const userId = req.body.userId;
-    // const user = await User.findOne({_id: ObjectID(userId)});
+    // const user = await User.findOne({_id: ObjectId(userId)});
     // User.updateOne(
-    //     { _id: ObjectID(userId)},
+    //     { _id: ObjectId(userId)},
     //     {
     //         $set: {
     //             refreshToken: ''
