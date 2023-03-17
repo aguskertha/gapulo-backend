@@ -1,0 +1,99 @@
+
+<div class="row mt-5">
+    <div class="col-md-11 m-auto">
+        <div class="card card-body">
+        <h1 class="text-center mb-3">
+            <% if (typeof culture != 'undefined') { %>
+                Update Culture
+            <% } else {%>
+                Create Culture
+            <% } %>
+        </h1>
+        <% include ./../partials/messages %> 
+        <% let url = "/admin/cultures/create" %>
+        <% if (typeof culture != 'undefined') { %>
+            <% url = `/admin/cultures/${culture._id}/edit` %>
+        <% } %>
+        <form action="<%= url %>" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group mt-2">
+            <label for="name">Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control mt-1"
+                placeholder="Enter Name"
+                required
+                value="<%= typeof culture == 'undefined' ? '' : typeof culture.name == 'undefined' ? '' : culture.name %>"
+            />
+            </div>
+            
+            <div class="form-group mt-2">
+            <label for="name">Link Video</label>
+            <input
+                type="text"
+                id="link"
+                name="link"
+                class="form-control mt-1"
+                placeholder="Enter Url"
+                required
+                value="<%= typeof culture == 'undefined' ? '' : typeof culture.link == 'undefined' ? '' : culture.link %>"
+            />
+            </div>
+
+            <div class="form-group mt-2">
+            <label for="name">Description</label>
+            <textarea
+                type="text"
+                id="description"
+                name="description"
+                class="form-control mt-1"
+                placeholder="Enter Description"
+                required
+            ><%= typeof culture == 'undefined' ? '' : typeof culture.description == 'undefined' ? '' : culture.description %></textarea>
+            </div>
+
+            
+            <div class="form-group mt-2">
+            <label for="name">Pictures</label>
+            
+            <% if (typeof culture != 'undefined') { %>
+                <div class="row" id="">
+                    <% if (culture.foodPictures) { %>
+                        <% for( let i = 1; i <= culture.foodPictures.length; i++ ) { %>
+                            <input type="hidden" name="picture" value="<%= APP_HOST %><%= culture.foodPictures[i-1] %>">
+                            <div class="col-md-4 mt-3">
+                                <img src="<%= APP_HOST %><%= culture.foodPictures[i-1] %>" alt="" width="120px">
+                            </div>
+                        
+                        <% } %>
+                    <% } %>
+                </div>
+            <% } %>
+
+
+            <div class="row" id="">
+                <div class="col-md-10">
+                    <input class="form-control form-control-lg" id="files" name="files" type="file" multiple>
+                </div>
+            </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block mt-3">
+                <% if (typeof culture != 'undefined') { %>
+                        Update
+                <% } else {%>
+                        Submit
+                <% } %>
+            </button>
+        </form>
+        </div>
+    </div>
+ 
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    
+</script>
