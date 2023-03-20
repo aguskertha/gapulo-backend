@@ -49,7 +49,7 @@ const restaurantSchema = new Schema({
     ],
     drinks: [
         {
-            type: Number,
+            type: String,
             required: true
         }
     ],

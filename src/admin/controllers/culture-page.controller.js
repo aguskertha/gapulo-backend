@@ -14,7 +14,7 @@ const registerCulturePage = async (req, res, next) => {
             throw "Files required!"
         }
 
-        culture.foodPictures = await uploadFile(req, res, next)
+        culture.foodPictures = await uploadFile(req.files.files)
 
         const newCulture = new Culture(culture)
         newCulture.save()
@@ -43,7 +43,7 @@ const updateCulturePage = async (req, res, next) => {
 
         if(req.files)
         {
-            newCulture.foodPictures = await uploadFile(req, res, next)
+            newCulture.foodPictures = await uploadFile(req.files.files)
         }
 
         await Culture.updateOne(
@@ -92,7 +92,7 @@ const renderEditCulturePage = async (req, res, next) => {
 
 const renderCulturePage = async (req, res, next) => {
     try {
-        const cultures = await Culture.find().sort({createAt: -1})
+        const cultures = await Culture.find().sort({createdAt: -1})
         res.render('Culture/culture-page', {
             layout: 'layouts/main-layout',
             user: req.user,

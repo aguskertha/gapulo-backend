@@ -20,7 +20,7 @@ const registerVillagePage = async (req, res, next) => {
             throw "Files required!"
         }
 
-        village.pictures = await uploadFile(req, res, next)
+        village.pictures = await uploadFile(req.files.files)
 
         const newVillage = new Village(village)
         newVillage.save()
@@ -55,7 +55,7 @@ const updateVillagePage = async (req, res, next) => {
 
         if(req.files)
         {
-            newVillage.pictures = await uploadFile(req, res, next)
+            newVillage.pictures = await uploadFile(req.files.files)
         }
 
         await Village.updateOne(
@@ -104,7 +104,7 @@ const renderEditVillagePage = async (req, res, next) => {
 
 const renderVillagePage = async (req, res, next) => {
     try {
-        const villages = await Village.find().sort({createAt: -1})
+        const villages = await Village.find().sort({createdAt: -1})
         res.render('Village/village-page', {
             layout: 'layouts/main-layout',
             user: req.user,

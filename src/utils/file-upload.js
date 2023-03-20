@@ -2,9 +2,9 @@ const fs = require('fs');
 const sharp = require('sharp');
 const moment = require('moment');
 
-const uploadFile = async (req, res, next) => {
+const uploadFile = async (files) => {
     try {
-        if(req.files.files)
+        if(files)
         {
             fs.access("./public/picture/", (error) => {
                 if (error) {
@@ -12,7 +12,6 @@ const uploadFile = async (req, res, next) => {
                 }
             });
 
-            const files = req.files.files
             if(typeof files.length != 'undefined' )
             {
 
@@ -26,7 +25,7 @@ const uploadFile = async (req, res, next) => {
 
         throw "Files not found!"
     } catch (error) {
-        res.status(400).json({message: error.toString()})
+        throw error
     }
 }
 
@@ -60,5 +59,6 @@ const multipleUpload = async (files) => {
 }
 
 module.exports = {
-    uploadFile
+    uploadFile,
+    singleUpload
 }

@@ -206,7 +206,7 @@ const renderEditFoodPage = async (req, res, next) => {
 
 const renderFoodPage = async (req, res, next) => {
     try {
-        const foods = await Food.find().sort({createAt: -1})
+        const foods = await Food.find().sort({createdAt: -1})
         res.render('Food/food-page', {
             layout: 'layouts/main-layout',
             user: req.user,

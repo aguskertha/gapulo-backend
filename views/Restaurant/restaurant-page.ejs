@@ -1,0 +1,56 @@
+<div class="container-fluid bg-white shadow-sm bg-body rounded py-3 m-3">
+    <a class="btn btn-primary mb-3" href="/admin/restaurants/create" role="button"><i class="bi bi-plus-square"></i> Restaurant</a>
+    <table class="table caption-top table-paginate-restaurant flex" cellspacing="0" width="70%">
+        <caption class="h3 mt-2">List of Restaurants</caption>
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for( let index = 0; index < restaurants.length; index++ ) { %>
+                <% const restaurant = restaurants[index] %> 
+                <tr>
+                    <th scope="row"><%= index+1 %> </th>
+                    <td><%= restaurant.name %></td>
+                    <td>
+                        <a class="btn btn-warning" href="/admin/restaurants/<%= restaurant._id %>/edit" role="button"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-danger" href="/admin/restaurants/<%= restaurant._id %>/delete" onclick="return confirm('Are you sure to delete the Item?')" role="button"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+          
+        </tbody>
+      </table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.table-paginate-restaurant').DataTable();
+    });
+
+    async function deleteData(url = '') {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      return response.json(); 
+    }
+
+    function deleteRestaurant(restaurantId){
+      var result = confirm('Are you sure to delete the Item?');
+      if(result){
+        deleteData('/restaurant/'+restaurantId)
+        .then(data => {
+          location.href = '/admin/restaurants'
+        })
+      }
+    }
+
+</script>

@@ -1,0 +1,338 @@
+
+<div class="row mt-5">
+    <div class="col-md-11 m-auto">
+        <div class="card card-body">
+        <h1 class="text-center mb-3">
+            <% if (typeof restaurant != 'undefined') { %>
+                Update Restaurant
+            <% } else {%>
+                Create Restaurant
+            <% } %>
+        </h1>
+        <% include ./../partials/messages %> 
+        <% let url = "/admin/restaurants/create" %>
+        <% if (typeof restaurant != 'undefined') { %>
+            <% url = `/admin/restaurants/${restaurant._id}/edit` %>
+        <% } %>
+        <form action="<%= url %>" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group mt-2">
+            <label for="name">Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control mt-1"
+                placeholder="Enter Name"
+                value="<%= typeof restaurant == 'undefined' ? '' : typeof restaurant.name == 'undefined' ? '' : restaurant.name %>"
+                required
+            />
+            </div>
+
+            <div class="form-group mt-2">
+            <label for="name">Description</label>
+            <textarea
+                type="text"
+                id="description"
+                name="description"
+                class="form-control mt-1"
+                placeholder="Enter Description"
+                required
+            ><%= typeof restaurant == 'undefined' ? '' : typeof restaurant.description == 'undefined' ? '' : restaurant.description %></textarea>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Location</label>
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    class="form-control mt-1"
+                    placeholder="Enter Location"
+                    value="<%= typeof restaurant == 'undefined' ? '' : typeof restaurant.location == 'undefined' ? '' : restaurant.location %>"
+                    required
+                />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Open Hour</label>
+                <input
+                    type="text"
+                    id="openHour"
+                    name="openHour"
+                    class="form-control mt-1"
+                    placeholder="Enter Open Hour"
+                    value="<%= typeof restaurant == 'undefined' ? '' : typeof restaurant.openHour == 'undefined' ? '' : restaurant.openHour %>"
+                    required
+                />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Close Hour</label>
+                <input
+                    type="text"
+                    id="closeHour"
+                    name="closeHour"
+                    class="form-control mt-1"
+                    placeholder="Enter Close Hour"
+                    value="<%= typeof restaurant == 'undefined' ? '' : typeof restaurant.closeHour == 'undefined' ? '' : restaurant.closeHour %>"
+                    required
+                />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Lowest Price</label>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                  <span class="input-group-text">Rp</span>
+                </div>
+                <input 
+                    type="number" 
+                    step="any" 
+                    class="form-control" 
+                    id="lowestPrice" 
+                    name="lowestPrice" 
+                    placeholder="Enter Lowest Price"
+                    value="<%= typeof restaurant == 'undefined' ? '' : typeof restaurant.lowestPrice == 'undefined' ? '' : restaurant.lowestPrice %>" 
+                    required
+                />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Highest Price</label>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                  <span class="input-group-text">Rp</span>
+                </div>
+                <input
+                    type="number"
+                    id="highestPrice"
+                    name="highestPrice"
+                    class="form-control"
+                    placeholder="Enter Highest Price"
+                    value="<%= typeof restaurant == 'undefined' ? '' : typeof restaurant.highestPrice == 'undefined' ? '' : restaurant.highestPrice %>"
+                    required
+                />
+            </div>
+
+            <div class="form-group mt-2">
+            <label for="name">Foods</label>
+            <input type="hidden" id="foodNumber" name="foodNumber" value="<%= typeof restaurant == 'undefined' ? '1' : typeof restaurant.foods == 'undefined' ? '1' : restaurant.foods.length %>">
+            <div class="foodWrapper">
+
+                <% if (typeof restaurant != 'undefined') { %>
+
+                    <% for( let i = 1; i <= restaurant.foods.length; i++ ) { %>
+                        <% let food = restaurant.foods[i-1] %>
+                        <div class="row" id="rowFood<%= i %>">
+                            <div class="col-md-10">
+                                <input
+                                    type="text"
+                                    id="food<%= i %>"
+                                    name="food<%= i %>"
+                                    class="form-control mt-1"
+                                    placeholder="Enter Food"
+                                    value="<%= food %>" required
+                                />
+                                
+                            </div>
+                            <% if (i != 1) { %>
+                                <div class="col mt-1" align="center">
+                                    <button type="button" class="btn btn-danger btn-md" id="foodButton<%= i %>" onclick="deleteRow('#rowFood<%= i %>')" ><i class="bi bi-node-minus"></i></button>
+                                </div>
+                            <% } %>
+                        </div>
+                    <% } %>
+                 
+                <% } else {%>
+                    <div class="row" id="rowFood1">
+                        <div class="col-md-10">
+                            <input
+                                type="text"
+                                id="food1"
+                                name="food1"
+                                class="form-control mt-1"
+                                placeholder="Enter Food"
+                                value="<%= typeof food != 'undefined' ? food : '' %>"
+                                required
+                            />
+        
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <hr>
+                </div>
+                <div class="col mt-1" align="center">
+                    <button type="button" class="btn btn-primary btn-md" id="foodButton"><i class="bi bi-node-plus"></i></button>
+                </div>
+            </div>
+            </div>
+
+            <div class="form-group mt-2">
+            <label for="name">Drinks</label>
+            <input type="hidden" id="drinkNumber" name="drinkNumber" value="<%= typeof restaurant == 'undefined' ? '1' : typeof restaurant.drinks == 'undefined' ? '1' : restaurant.drinks.length %>">
+            <div class="drinkWrapper">
+
+                <% if (typeof restaurant != 'undefined') { %>
+
+                    <% for( let i = 1; i <= restaurant.drinks.length; i++ ) { %>
+                        <% let drink = restaurant.drinks[i-1] %>
+                        <div class="row" id="rowDrink<%= i %>">
+                            <div class="col-md-10">
+                                <input
+                                    type="text"
+                                    id="drink<%= i %>"
+                                    name="drink<%= i %>"
+                                    class="form-control mt-1"
+                                    placeholder="Enter Drink"
+                                    value="<%= drink %>" 
+                                    required
+                                />
+                                
+                            </div>
+                            <% if (i != 1) { %>
+                                <div class="col mt-1" align="center">
+                                    <button type="button" class="btn btn-danger btn-md" id="drinkButton<%= i %>" onclick="deleteRow('#rowDrink<%= i %>')" ><i class="bi bi-node-minus"></i></button>
+                                </div>
+                            <% } %>
+                        </div>
+                    <% } %>
+                 
+                <% } else {%>
+                    <div class="row" id="rowDrink1">
+                        <div class="col-md-10">
+                            <input
+                                type="text"
+                                id="drink1"
+                                name="drink1"
+                                class="form-control mt-1"
+                                placeholder="Enter Drink"
+                                value="<%= typeof drink != 'undefined' ? drink : '' %>"
+                                required
+                            />
+        
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <hr>
+                </div>
+                <div class="col mt-1" align="center">
+                    <button type="button" class="btn btn-primary btn-md" id="drinkButton"><i class="bi bi-node-plus"></i></button>
+                </div>
+            </div>
+            </div>
+            
+            <div class="form-group mt-2">
+            <label for="name">Restaurant Picture</label>
+            
+            <% if (typeof restaurant != 'undefined') { %>
+                <div class="row" id="">
+                    <div class="col-md-4 mt-3">
+                        <img src="<%= APP_HOST %><%= restaurant.picture %>" alt="" width="120px">
+                    </div>
+                </div>
+            <% } %>
+
+
+            <div class="row" id="">
+                <div class="col-md-10">
+                    <input class="form-control form-control-lg" id="picture" name="picture" type="file">
+                </div>
+            </div>
+            </div>
+            
+            <div class="form-group mt-2">
+            <label for="name">Menu Pictures</label>
+            
+            <% if (typeof restaurant != 'undefined') { %>
+                <div class="row" id="">
+                    <% for( let i = 1; i <= restaurant.menuPictures.length; i++ ) { %>
+                        <input type="hidden" name="picture" value="<%= APP_HOST %><%= restaurant.menuPictures[i-1] %>">
+                        <div class="col-md-4 mt-3">
+                            <img src="<%= APP_HOST %><%= restaurant.menuPictures[i-1] %>" alt="" width="120px">
+                        </div>
+                    
+                    <% } %>
+                </div>
+            <% } %>
+
+
+            <div class="row" id="">
+                <div class="col-md-10">
+                    <input class="form-control form-control-lg" id="menuPictures" name="menuPictures" type="file" multiple>
+                </div>
+            </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block mt-3">
+                <% if (typeof restaurant != 'undefined') { %>
+                        Update
+                <% } else {%>
+                        Submit
+                <% } %>
+            </button>
+        </form>
+        </div>
+    </div>
+ 
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    function deleteRow(row){
+        var oldBtn = $(row);
+        oldBtn.remove()
+    }
+
+    function addField (label, name, number, button, wrapper, row){
+        var _number = $("#"+number).val();
+        $("#"+button).on('click', () => {
+            var _wrapper = $("."+wrapper);
+            $("#"+number).val(++_number);
+            $(_wrapper).append(`
+            <div class="row" id="${row}${_number}">
+                <div class="col-md-10">
+                    <input
+                        type="text"
+                        id="${name}${_number}"
+                        name="${name}${_number}"
+                        class="form-control mt-1"
+                        placeholder="Enter ${label}"
+                        value=""
+                        required
+                    />
+                    
+                </div>
+                <div class="col mt-1" align="center">
+                    <button type="button" class="btn btn-danger btn-md" id="${button}${_number}"><i class="bi bi-node-minus"></i></button>
+                </div>
+            </div>
+            `);  
+
+            removeField(`#${row}${_number}`, `#${button}${_number}`);
+        })
+    }
+
+    function removeField ( row, button){
+        $(function(){
+            $(button).on('click', () => {
+                var oldBtn = $(row);
+                oldBtn.remove()
+            })
+        })
+        
+    }
+
+    addField('Food', 'food', 'foodNumber', 'foodButton', "foodWrapper", "rowFood");
+    addField('Drink', 'drink', 'drinkNumber', 'drinkButton', "drinkWrapper", "drinkFood");
+    
+    
+</script>
