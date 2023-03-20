@@ -1,8 +1,8 @@
 <div class="container-fluid bg-white shadow-sm bg-body rounded py-3 m-3">
     <% include ./../partials/messages %> 
-    <a class="btn btn-primary mb-3" href="/admin/cultures/create" role="button"><i class="bi bi-plus-square"></i> Culture</a>
-    <table class="table caption-top table-paginate-culture flex" cellspacing="0" width="70%">
-        <caption class="h3 mt-2">List of Cultures</caption>
+    <a class="btn btn-primary mb-3" href="/admin/villages/create" role="button"><i class="bi bi-plus-square"></i> Village</a>
+    <table class="table caption-top table-paginate-village flex" cellspacing="0" width="70%">
+        <caption class="h3 mt-2">List of Villages</caption>
         <thead>
             <tr>
                 <th scope="col">No</th>
@@ -11,14 +11,14 @@
             </tr>
         </thead>
         <tbody>
-            <% for( let index = 0; index < cultures.length; index++ ) { %>
-                <% const culture = cultures[index] %> 
+            <% for( let index = 0; index < villages.length; index++ ) { %>
+                <% const village = villages[index] %> 
                 <tr>
                     <th scope="row"><%= index+1 %> </th>
-                    <td><%= culture.name %></td>
+                    <td><%= village.name %></td>
                     <td>
-                        <a class="btn btn-warning" href="/admin/cultures/<%= culture._id %>/edit" role="button"><i class="bi bi-pencil"></i></a>
-                        <a class="btn btn-danger" href="/admin/cultures/<%= culture._id %>/delete" onclick="return confirm('Are you sure to delete the Item?')" role="button"><i class="bi bi-trash"></i></a>
+                        <a class="btn btn-warning" href="/admin/villages/<%= village._id %>/edit" role="button"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-danger" href="/admin/villages/<%= village._id %>/delete" onclick="return confirm('Are you sure to delete the Item?')" role="button"><i class="bi bi-trash"></i></a>
                     </td>
                 </tr>
             <% } %>
@@ -31,7 +31,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('.table-paginate-culture').DataTable();
+        $('.table-paginate-village').DataTable();
     });
 
 </script>

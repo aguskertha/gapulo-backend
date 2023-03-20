@@ -1,10 +1,10 @@
 const ObjectId = require('mongodb').ObjectId;
-const Culture = require('./../models/culture.model')
+const Village = require('../models/village.model')
 
 const getAll = async (req, res, next) => {
     try {
-        const cultures = await Culture.find().sort({createAt: -1})
-        return res.json(cultures)
+        const villages = await Village.find().sort({createAt: -1})
+        return res.json(villages)
         
     } catch (error) {
         res.status(400).json({message: error.toString()})
@@ -13,12 +13,12 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
     try {
-        const cultureId = req.params.cultureId
-        const culture = await Culture.findOne({_id: ObjectId(cultureId)})
-        if(!culture){
-            throw "Culture not found!"
+        const villageId = req.params.villageId
+        const village = await Village.findOne({_id: ObjectId(villageId)})
+        if(!village){
+            throw "Village not found!"
         }
-        return res.json(culture)
+        return res.json(village)
     } catch (error) {
         res.status(400).json({message: error.toString()})
     }

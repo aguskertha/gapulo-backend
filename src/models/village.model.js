@@ -25,6 +25,10 @@ const villageSchema = new Schema({
         type: String,
         required: true
     },
+    address: {
+        type: String,
+        required: true
+    },
     location: {
         type: String,
         required: true

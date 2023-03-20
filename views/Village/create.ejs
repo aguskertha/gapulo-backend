@@ -1,0 +1,175 @@
+
+<div class="row mt-5">
+    <div class="col-md-11 m-auto">
+        <div class="card card-body">
+        <h1 class="text-center mb-3">
+            <% if (typeof village != 'undefined') { %>
+                Update Village
+            <% } else {%>
+                Create Village
+            <% } %>
+        </h1>
+        <% include ./../partials/messages %> 
+        <% let url = "/admin/villages/create" %>
+        <% if (typeof village != 'undefined') { %>
+            <% url = `/admin/villages/${village._id}/edit` %>
+        <% } %>
+        <form action="<%= url %>" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group mt-2">
+            <label for="name">Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control mt-1"
+                placeholder="Enter Name"
+                required
+                value="<%= typeof village == 'undefined' ? '' : typeof village.name == 'undefined' ? '' : village.name %>"
+            />
+            </div>
+            
+            <div class="form-group mt-2">
+            <label for="name">Range Hour</label>
+            <input
+                type="text"
+                id="rangeHour"
+                name="rangeHour"
+                class="form-control mt-1"
+                placeholder="Enter Range Hour"
+                required
+                value="<%= typeof village == 'undefined' ? '' : typeof village.rangeHour == 'undefined' ? '' : village.rangeHour %>"
+            />
+            </div>
+
+            <div class="form-group mt-2">
+            <label for="name">Link Video</label>
+            <input
+                type="text"
+                id="link"
+                name="link"
+                class="form-control mt-1"
+                placeholder="Enter Url"
+                required
+                value="<%= typeof village == 'undefined' ? '' : typeof village.link == 'undefined' ? '' : village.link %>"
+            />
+            </div>
+
+            <div class="form-group mt-2">
+            <label for="name">Description</label>
+            <textarea
+                type="text"
+                id="description"
+                name="description"
+                class="form-control mt-1"
+                placeholder="Enter Description"
+                required
+            ><%= typeof village == 'undefined' ? '' : typeof village.description == 'undefined' ? '' : village.description %></textarea>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Address</label>
+                <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    class="form-control mt-1"
+                    placeholder="Enter Address"
+                    required
+                    value="<%= typeof village == 'undefined' ? '' : typeof village.address == 'undefined' ? '' : village.address %>"
+                />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Location Map</label>
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    class="form-control mt-1"
+                    placeholder="Enter Location on Map"
+                    required
+                    value="<%= typeof village == 'undefined' ? '' : typeof village.location == 'undefined' ? '' : village.location %>"
+                />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Facility</label>
+                <textarea
+                    type="text"
+                    id="facility"
+                    name="facility"
+                    class="form-control mt-1"
+                    placeholder="Enter Facility"
+                    required
+                ><%= typeof village == 'undefined' ? '' : typeof village.facility == 'undefined' ? '' : village.facility %></textarea>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Phone</label>
+                <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    class="form-control mt-1"
+                    placeholder="Enter Phone Number"
+                    required
+                    value="<%= typeof village == 'undefined' ? '' : typeof village.phone == 'undefined' ? '' : village.phone %>"
+                />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="name">Website</label>
+                <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    class="form-control mt-1"
+                    placeholder="Enter Link Website"
+                    required
+                    value="<%= typeof village == 'undefined' ? '' : typeof village.website == 'undefined' ? '' : village.website %>"
+                />
+            </div>
+            
+            <div class="form-group mt-2">
+            <label for="name">Pictures</label>
+            
+            <% if (typeof village != 'undefined') { %>
+                <div class="row" id="">
+                    <% if (village.pictures) { %>
+                        <% for( let i = 1; i <= village.pictures.length; i++ ) { %>
+                            <input type="hidden" name="picture" value="<%= APP_HOST %><%= village.pictures[i-1] %>">
+                            <div class="col-md-4 mt-3">
+                                <img src="<%= APP_HOST %><%= village.pictures[i-1] %>" alt="" width="120px">
+                            </div>
+                        
+                        <% } %>
+                    <% } %>
+                </div>
+            <% } %>
+
+
+            <div class="row" id="">
+                <div class="col-md-10">
+                    <input class="form-control form-control-lg" id="files" name="files" type="file" multiple>
+                </div>
+            </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block mt-3">
+                <% if (typeof village != 'undefined') { %>
+                        Update
+                <% } else {%>
+                        Submit
+                <% } %>
+            </button>
+        </form>
+        </div>
+    </div>
+ 
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    
+</script>
