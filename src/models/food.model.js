@@ -15,13 +15,13 @@ const foodSchema = new Schema({
         type: String,
         required: true
     },
-    historyPicture: [
+    historyPictures: [
         {
             type: String,
             required: true
         }
     ],
-    culturePicture: [
+    culturePictures: [
         {
             cultureId: {
                 type: String,

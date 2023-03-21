@@ -157,7 +157,7 @@ const renderEditRestaurantPage = async (req, res, next) => {
 
 const renderRestaurantPage = async (req, res, next) => {
     try {
-        const restaurants = await Restaurant.find().sort({createdAt: -1})
+        const restaurants = await Restaurant.find({}, {name: 1}).sort({createdAt: -1})
         res.render('Restaurant/restaurant-page', {
             layout: 'layouts/main-layout',
             user: req.user,

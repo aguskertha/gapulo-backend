@@ -92,7 +92,7 @@ const renderEditCulturePage = async (req, res, next) => {
 
 const renderCulturePage = async (req, res, next) => {
     try {
-        const cultures = await Culture.find().sort({createdAt: -1})
+        const cultures = await Culture.find({}, {name: 1}).sort({createdAt: -1})
         res.render('Culture/culture-page', {
             layout: 'layouts/main-layout',
             user: req.user,

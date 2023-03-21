@@ -104,7 +104,7 @@ const renderEditVillagePage = async (req, res, next) => {
 
 const renderVillagePage = async (req, res, next) => {
     try {
-        const villages = await Village.find().sort({createdAt: -1})
+        const villages = await Village.find({}, {name: 1}).sort({createdAt: -1})
         res.render('Village/village-page', {
             layout: 'layouts/main-layout',
             user: req.user,

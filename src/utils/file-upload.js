@@ -1,6 +1,7 @@
 const fs = require('fs');
 const sharp = require('sharp');
 const moment = require('moment');
+var ObjectID = require('mongodb').ObjectID;
 
 const uploadFile = async (files) => {
     try {
@@ -35,7 +36,7 @@ const singleUpload = async (files) => {
     const fileName = originalname.replace(/\s/g, '');
     const filterFileName = fileName.replace(/\.[^/.]+$/, "");
     const date = moment().format('YYYY-MM-DD-hh-mm-ss');
-    const ref = date+'-'+filterFileName.toLowerCase()+'.webp';
+    const ref = date+'-'+filterFileName.toLowerCase()+new ObjectID().toString()+'.webp';
     await sharp(buffer)
         .webp({ quality: 20 })
         .toFile("./public/picture/" + ref);

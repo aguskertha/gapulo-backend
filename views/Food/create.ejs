@@ -25,6 +25,7 @@
                 class="form-control mt-1"
                 placeholder="Enter Name"
                 value="<%= typeof food == 'undefined' ? '' : typeof food.name == 'undefined' ? '' : food.name %>"
+                required
             />
             </div>
             
@@ -37,6 +38,7 @@
                 class="form-control mt-1"
                 placeholder="Enter Url"
                 value="<%= typeof food == 'undefined' ? '' : typeof food.link == 'undefined' ? '' : food.link %>"
+                required
             />
             </div>
 
@@ -48,6 +50,7 @@
                 name="description"
                 class="form-control mt-1"
                 placeholder="Enter Description"
+                required
             ><%= typeof food == 'undefined' ? '' : typeof food.description == 'undefined' ? '' : food.description %></textarea>
             </div>
 
@@ -59,30 +62,8 @@
                 name="history"
                 class="form-control mt-1"
                 placeholder="Enter History"
+                required
             ><%= typeof food == 'undefined' ? '' : typeof food.history == 'undefined' ? '' : food.history %></textarea>
-            </div>
-            
-            <div class="form-group mt-2">
-            <label for="name">Culture</label>
-            <textarea
-                id="culture"
-                name="culture"
-                class="form-control mt-1"
-                placeholder="Enter Culture"
-                value="<%= typeof culture != 'undefined' ? culture : '' %>"
-            ><%= typeof food == 'undefined' ? '' : typeof food.culture == 'undefined' ? '' : food.culture %></textarea>
-            </div>
-
-            <div class="form-group mt-2">
-            <label for="name">Food Party Of Life Style</label>
-            <input
-                type="text"
-                id="lifeStyle"
-                name="lifeStyle"
-                class="form-control mt-1"
-                placeholder="Enter Life Style"
-                value="<%= typeof food == 'undefined' ? '' : typeof food.lifeStyle == 'undefined' ? '' : food.lifeStyle %>"
-            />
             </div>
 
             <div class="form-group mt-2">
@@ -101,6 +82,7 @@
                                     class="form-control mt-1"
                                     placeholder="Enter Ingredient"
                                     value="<%= typeof ingredient != 'undefined' ? ingredient.name : '' %>"
+                                    required
                                 />
                                 <input type="hidden" id="itemNumber<%= i %>" name="itemNumber<%= i %>" value="<%= typeof ingredient == 'undefined' ? '1' : typeof ingredient.items == 'undefined' ? '1' : ingredient.items.length %>">
                                 <div class="itemWrapper<%= i %>">
@@ -115,6 +97,7 @@
                                                     class="form-control mt-1 ms-3"
                                                     placeholder="Enter Item"
                                                     value="<%= typeof item != 'undefined' ? item : '' %>"
+                                                    required
                                                 />
                                             </div>
                                             <% if (j != 1) { %>
@@ -154,6 +137,7 @@
                                 class="form-control mt-1"
                                 placeholder="Enter Ingredient"
                                 value="<%= typeof ingredient != 'undefined' ? ingredient : '' %>"
+                                required
                             />
                             <input type="hidden" id="itemNumber1" name="itemNumber1" value="1">
                             <div class="itemWrapper1">
@@ -166,6 +150,7 @@
                                             class="form-control mt-1 ms-3"
                                             placeholder="Enter Item"
                                             value="<%= typeof item != 'undefined' ? item : '' %>"
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -211,6 +196,7 @@
                                     class="form-control mt-1"
                                     placeholder="Enter Step"
                                     value="<%= howToMake %>"
+                                    required
                                 />
                                 
                             </div>
@@ -232,6 +218,7 @@
                                 class="form-control mt-1"
                                 placeholder="Enter Step"
                                 value="<%= typeof nutrition != 'undefined' ? nutrition : '' %>"
+                                required
                             />
         
                         </div>
@@ -266,6 +253,7 @@
                                     class="form-control mt-1"
                                     placeholder="Enter Nutrition"
                                     value="<%= nutrition %>"
+                                    required
                                 />
                                 
                             </div>
@@ -287,6 +275,7 @@
                                 class="form-control mt-1"
                                 placeholder="Enter Nutrition"
                                 value="<%= typeof nutrition != 'undefined' ? nutrition : '' %>"
+                                required
                             />
         
                         </div>
@@ -304,14 +293,13 @@
             </div>
             
             <div class="form-group mt-2">
-            <label for="name">Pictures</label>
+            <label for="name">History Pictures</label>
             
             <% if (typeof food != 'undefined') { %>
                 <div class="row" id="">
-                    <% for( let i = 1; i <= food.picture.length; i++ ) { %>
-                        <input type="hidden" name="picture" value="<%= APP_HOST %><%= food.picture[i-1] %>">
+                    <% for( let i = 1; i <= food.historyPictures.length; i++ ) { %>
                         <div class="col-md-4 mt-3">
-                            <img src="<%= APP_HOST %><%= food.picture[i-1] %>" alt="" width="120px">
+                            <img src="<%= APP_HOST %><%= food.historyPictures[i-1] %>" alt="" width="120px">
                         </div>
                     
                     <% } %>
@@ -321,9 +309,77 @@
 
             <div class="row" id="">
                 <div class="col-md-10">
-                    <input class="form-control form-control-lg" id="files" name="files" type="file" multiple>
+                    <input class="form-control form-control-lg" id="historyPictures" name="historyPictures" type="file" multiple>
                 </div>
             </div>
+            </div>
+
+            <div class="form-group mt-5">
+            <label for="name">How To Make Pictures</label>
+            
+            <% if (typeof food != 'undefined') { %>
+                <div class="row" id="">
+                    <% for( let i = 1; i <= food.howToMakePictures.length; i++ ) { %>
+                        <div class="col-md-4 mt-3">
+                            <img src="<%= APP_HOST %><%= food.howToMakePictures[i-1] %>" alt="" width="120px">
+                        </div>
+                    
+                    <% } %>
+                </div>
+            <% } %>
+
+
+            <div class="row" id="">
+                <div class="col-md-10">
+                    <input class="form-control form-control-lg" id="howToMakePictures" name="howToMakePictures" type="file" multiple>
+                </div>
+            </div>
+            </div>
+            
+            <div class="form-group mt-5">
+            <label for="name">Culture Pictures</label>
+
+            <% if (typeof food != 'undefined') { %>
+                <div class="row" id="">
+                    <% for( let i = 1; i <= food.culturePictures.length; i++ ) { %>
+                        <div class="col-md-4 mt-3">
+                            <% if (food.culturePictures[i-1].culture != null) { %>
+                                <h5><%= food.culturePictures[i-1].culture.name %></h5>
+                            <% } %>
+                            <img src="<%= APP_HOST %><%= food.culturePictures[i-1].picture %>" alt="" width="120px">
+                        </div>
+                    
+                    <% } %>
+                </div>
+            <% } %>
+
+            <input type="hidden" id="culturePicturesNumber" name="culturePicturesNumber" value="<%= typeof food == 'undefined' ? '1' : typeof food.culturePictures == 'undefined' ? '1' : food.culturePictures.length %>">
+            <div class="culturePicturesWrapper">
+                <div class="row justify-content-start" id="rowCulturePictures1">
+                    <div class="col-3">
+                        <select class="form-select" name="selectCultures" aria-label="">
+                            <option selected>Select cultures: </option>
+                            <% for( let i = 0; i < cultures.length; i++ ) { %>
+                                <% const culture = cultures[i] %>
+                                <option value="<%= culture._id %>"><%= culture.name %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control form-control-lg" id="culturePictures" name="culturePictures" type="file">    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <hr>
+                </div>
+                <div class="col mt-1" align="center">
+                    <button type="button" class="btn btn-primary btn-md" id="culturePicturesButton"><i class="bi bi-node-plus"></i></button>
+                </div>
+            </div>
+
+
             </div>
             
             <button type="submit" class="btn btn-primary btn-block mt-3">
@@ -456,6 +512,35 @@
         })
     }
 
+    function addSelect (label, name, number, button, wrapper, row){
+        var _number = $("#"+number).val();
+        $("#"+button).on('click', () => {
+            var _wrapper = $("."+wrapper);
+            $("#"+number).val(++_number);
+            $(_wrapper).append(`
+            <div class="row justify-content-start mt-3" id="${row}${_number}">
+                <div class="col-3">
+                    <select class="form-select" name="selectCultures" aria-label="">
+                        <option selected>Select cultures: </option>
+                        <% for( let i = 0; i < cultures.length; i++ ) { %>
+                            <% const culture = cultures[i] %>
+                            <option value="<%= culture._id %>"><%= culture.name %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="col-5">
+                    <input class="form-control form-control-lg" id="culturePictures" name="culturePictures" type="file">    
+                </div>
+                <div class="col mt-1" align="center">
+                    <button type="button" class="btn btn-danger btn-md" id="${button}${_number}"><i class="bi bi-node-minus"></i></button>
+                </div>
+            </div>
+            `);  
+
+            removeField(`#${row}${_number}`, `#${button}${_number}`);
+        })
+    }
+
     function removeField ( row, button){
         $(function(){
             $(button).on('click', () => {
@@ -466,6 +551,8 @@
         
     }
 
+    addSelect('Culture', 'culturePictures', 'culturePicturesNumber', 'culturePicturesButton', "culturePicturesWrapper", "rowCulturePictures");
+    
     addField('Step', 'howToMake', 'howToMakeNumber', 'howToMakeButton', "howToMakeWrapper", "rowHowToMake");
     addField('Nutrition', 'nutrition', 'nutritionNumber', 'nutritionButton', "nutritionWrapper", "rowNutrition");
     addIngredient('Ingredient', '#ingredientTypeNumber', '#ingredientTypeButton', ".ingredientTypeWapper");
