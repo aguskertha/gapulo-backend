@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  gapulo-app:
+    container_name: gapulo-app
+    restart: always
+    build: .
+    links:
+      - gapulo-mongo
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5009:5009"
+    environment:
+      - SECRET_KEY=df5ea29924d39c3be8785734f13169c1
+      - db_service_name=gapulo-mongo
+      - db_port=385
+      - db_name=gapuloDB
+      - PORT=5009
+      - APP_HOST=http://localhost:5009
+
+  gapulo-mongo:
+    image: mongo:latest # use the latest image.
+    container_name: gapulo-mongo
+    restart: always
+    environment: # set required env variables to access mongo
+      MONGO_INITDB_DATABASE: gapuloDB
+    command: mongod --port 385
+    ports:
+      - 385:385
+    volumes: 
+      - ./data/db:/data/db
+  
