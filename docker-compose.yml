@@ -14,7 +14,7 @@ services:
     environment:
       - SECRET_KEY=df5ea29924d39c3be8785734f13169c1
       - db_service_name=gapulo-mongo
-      - db_port=385
+      - db_port=384
       - db_name=gapuloDB
       - PORT=5009
       - APP_HOST=http://localhost:5009
@@ -25,9 +25,9 @@ services:
     restart: always
     environment: # set required env variables to access mongo
       MONGO_INITDB_DATABASE: gapuloDB
-    command: mongod --port 385
+    command: mongod --port 384
     ports:
-      - 385:385
+      - 384:384
     volumes: 
       - ./data/db:/data/db
   
