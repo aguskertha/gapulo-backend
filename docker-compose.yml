@@ -10,14 +10,14 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - "5009:5009"
+      - "80:80"
     environment:
       - SECRET_KEY=df5ea29924d39c3be8785734f13169c1
       - db_service_name=gapulo-mongo
       - db_port=384
       - db_name=gapuloDB
-      - PORT=5009
-      - APP_HOST=http://localhost:5009
+      - PORT=80
+      - APP_HOST=http://localhost:80
 
   gapulo-mongo:
     image: mongo:latest # use the latest image.
