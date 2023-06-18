@@ -1,4 +1,4 @@
-const {uploadFile} = require('../../utils/file-upload')
+const {uploadFile, uploadHistoryPicture} = require('../../utils/file-upload')
 
 const Food = require('../../models/food.model')
 const Culture = require('../../models/culture.model')
@@ -52,32 +52,45 @@ const registerFoodPage = async (req, res, next) => {
             }
         }
         food.nutritions = nutritions
-
+        console.log(req.files)
         if(req.files)
         {
             if(req.files.historyPictures)
             {
                 food.historyPictures = await uploadFile(req.files.historyPictures)
+                console.log(food.historyPictures)
             }
             if(req.files.howToMakePictures)
             {
                 food.howToMakePictures = await uploadFile(req.files.howToMakePictures)
+                console.log(food.howToMakePictures)
             }
             if(req.files.culturePictures)
             {
                 let cultures = []
                 const culturePictures = await uploadFile(req.files.culturePictures)
-                for (let i = 0; i < req.body.selectCultures.length; i++) {
-                    const selectCulture = req.body.selectCultures[i]
+            
+                if(Array.isArray(req.body.selectCultures))
+                {
+                    for (let i = 0; i < req.body.selectCultures.length; i++) {
+                        const selectCulture = req.body.selectCultures[i]
+                        cultures.push({
+                            cultureId: selectCulture,
+                            picture: culturePictures[i]
+                        })
+                    }
+                }
+                else
+                {
                     cultures.push({
-                        cultureId: selectCulture,
-                        picture: culturePictures[i]
+                        cultureId: req.body.selectCultures,
+                        picture: culturePictures
                     })
                 }
+                
                 food.culturePictures = cultures
             }
         }
-
         const newFood = new Food(food)
         newFood.save()
         req.flash('success_msg', 'Successfully created Food!');
@@ -163,13 +176,25 @@ const updateFoodPage = async (req, res, next) => {
             {
                 let cultures = []
                 const culturePictures = await uploadFile(req.files.culturePictures)
-                for (let i = 0; i < req.body.selectCultures.length; i++) {
-                    const selectCulture = req.body.selectCultures[i]
+            
+                if(Array.isArray(req.body.selectCultures))
+                {
+                    for (let i = 0; i < req.body.selectCultures.length; i++) {
+                        const selectCulture = req.body.selectCultures[i]
+                        cultures.push({
+                            cultureId: selectCulture,
+                            picture: culturePictures[i]
+                        })
+                    }
+                }
+                else
+                {
                     cultures.push({
-                        cultureId: selectCulture,
-                        picture: culturePictures[i]
+                        cultureId: req.body.selectCultures,
+                        picture: culturePictures
                     })
                 }
+
                 newFood.culturePictures = cultures
             }
         }

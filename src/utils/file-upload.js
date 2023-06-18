@@ -30,6 +30,61 @@ const uploadFile = async (files) => {
     }
 }
 
+
+const uploadHistoryPicture = (files) => {
+    try {
+        if(files)
+        {
+            fs.access("./public/picture/", (error) => {
+                if (error) {
+                    fs.mkdirSync("./public/picture/");
+                }
+            });
+
+            if(typeof files.length != 'undefined' )
+            {
+                let urls = []
+
+                files.map((files) => {
+                    const buffer = files.data
+                    const originalname = files.name
+                    const fileName = originalname.replace(/\s/g, '');
+                    const filterFileName = fileName.replace(/\.[^/.]+$/, "");
+                    const date = moment().format('YYYY-MM-DD-hh-mm-ss');
+                    const ref = date+'-'+filterFileName.toLowerCase()+new ObjectID().toString()+'.webp';
+                    sharp(buffer)
+                        .webp({ quality: 20 })
+                        .toFile("./public/picture/" + ref);
+                    let url = `/public/picture/${ref}`;
+                    urls.push(url)
+                })
+                
+
+                return urls
+            }
+            else
+            {
+                const buffer = files.data
+                const originalname = files.name
+                const fileName = originalname.replace(/\s/g, '');
+                const filterFileName = fileName.replace(/\.[^/.]+$/, "");
+                const date = moment().format('YYYY-MM-DD-hh-mm-ss');
+                const ref = date+'-'+filterFileName.toLowerCase()+new ObjectID().toString()+'.webp';
+                sharp(buffer)
+                    .webp({ quality: 20 })
+                    .toFile("./public/picture/" + ref);
+                let url = `/public/picture/${ref}`;
+
+                return url
+            }
+        }
+
+        throw "Files not found!"
+    } catch (error) {
+        throw error
+    }
+}
+
 const singleUpload = async (files) => {
     const buffer = files.data
     const originalname = files.name
@@ -44,6 +99,7 @@ const singleUpload = async (files) => {
 
     return url
 }
+
 
 const multipleUpload = async (files) => {
     let urls = []
@@ -61,5 +117,6 @@ const multipleUpload = async (files) => {
 
 module.exports = {
     uploadFile,
-    singleUpload
+    singleUpload,
+    uploadHistoryPicture
 }

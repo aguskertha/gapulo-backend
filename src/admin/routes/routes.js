@@ -8,7 +8,7 @@ const restaurantRouter = require('../routes/restaurant.route')
 const {ensureAuthenticated} = require('../../middleware/auth');
 
 router.use('/dashboard', ensureAuthenticated, dashboardRouter);
-router.use('/foods', ensureAuthenticated, foodRouter);
+router.use('/foods', foodRouter);
 router.use('/cultures',  ensureAuthenticated, cultureRouter);
 router.use('/villages',  ensureAuthenticated, villageRouter);
 router.use('/restaurants',  ensureAuthenticated, restaurantRouter);
