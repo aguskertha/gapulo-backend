@@ -17,7 +17,7 @@ services:
       - db_port=384
       - db_name=gapuloDB
       - PORT=80
-      - APP_HOST=http://localhost:80
+      - APP_HOST=http://gapulo.tech:80
 
   gapulo-mongo:
     image: mongo:latest # use the latest image.
