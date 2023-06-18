@@ -358,7 +358,7 @@
                 <div class="row justify-content-start" id="rowCulturePictures1">
                     <div class="col-3">
                         <select class="form-select" name="selectCultures" aria-label="" required>
-                            <option>Select cultures: </option>
+                            <option value="" disabled selected hidden>Select cultures: </option>
                             <% for( let i = 0; i < cultures.length; i++ ) { %>
                                 <% const culture = cultures[i] %>
                                 <option value="<%= culture._id %>"><%= culture.name %></option>
@@ -521,7 +521,7 @@
             <div class="row justify-content-start mt-3" id="${row}${_number}">
                 <div class="col-3">
                     <select class="form-select" name="selectCultures" aria-label="" required>
-                        <option>Select cultures: </option>
+                        <option value="" disabled selected hidden>Select cultures: </option>
                         <% for( let i = 0; i < cultures.length; i++ ) { %>
                             <% const culture = cultures[i] %>
                             <option value="<%= culture._id %>"><%= culture.name %></option>
