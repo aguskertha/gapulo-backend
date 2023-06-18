@@ -357,7 +357,7 @@
             <div class="culturePicturesWrapper">
                 <div class="row justify-content-start" id="rowCulturePictures1">
                     <div class="col-3">
-                        <select class="form-select" name="selectCultures" aria-label="">
+                        <select class="form-select" name="selectCultures" aria-label="" required>
                             <option selected>Select cultures: </option>
                             <% for( let i = 0; i < cultures.length; i++ ) { %>
                                 <% const culture = cultures[i] %>
@@ -520,7 +520,7 @@
             $(_wrapper).append(`
             <div class="row justify-content-start mt-3" id="${row}${_number}">
                 <div class="col-3">
-                    <select class="form-select" name="selectCultures" aria-label="">
+                    <select class="form-select" name="selectCultures" aria-label="" required>
                         <option selected>Select cultures: </option>
                         <% for( let i = 0; i < cultures.length; i++ ) { %>
                             <% const culture = cultures[i] %>
